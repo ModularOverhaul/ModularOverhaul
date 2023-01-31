@@ -5,6 +5,7 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon-32x32.png" />
 		<meta name="viewport" content="width=device-width" />
 		<title>ModularOverhaul</title>
+		<script src="https://kit.fontawesome.com/0693adc23c.js" crossorigin="anonymous"></script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -26,8 +27,16 @@
 		font-family: 'Open Sans', sans-serif;
 		font-weight: 800;
 	}
-	p {
+	p, a {
 		font-family: 'Inter', sans-serif;
 		font-weight: 300;
+	}
+
+	a {
+		color: #a55eea;
+		transition: .3s;
+	}
+	a:hover {
+		color: #2bcbba;
 	}
 </style>
