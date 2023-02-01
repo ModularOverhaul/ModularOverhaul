@@ -29,9 +29,21 @@
             tag = "explore"
             break;
     }
+
+    let selected: Boolean;
+    let selclass: String = "";
+    function toggle() {
+        selected = !selected
+        if (selected) {
+            selclass = "selected"
+        } else {
+            selclass = ""
+        }
+        console.log(`Changed state of ${id} to ${selected}`)
+    }
 </script>
 
-<div class="module gridid{id}">
+<div class="module gridid{id} {selclass}" on:click={toggle} on:keydown={toggle}>
     <h1>{info.name}</h1>
     <div class="module-tag"><h4># {info.tag}</h4></div>
     <img src="{info.image}" alt="{info.imagealt}">
@@ -46,17 +58,28 @@
         border-radius: 10px;
         background-color: #474746;
         position: relative;
+        transition: 300ms background cubic-bezier(.45,.05,.55,.95);
+        &:hover {
+            background-color: #575756;
+        }
         * {
             margin: 5px;
         }
         img {
-            height:50%;
+            height:45%;
             aspect-ratio: 1 / 1;
             border-radius: inherit;
             display:block;
             margin: auto;
             object-fit: cover;
+
+            transition: scale 300ms 100ms cubic-bezier(.18,.89,.32,1.28) ;
+            &:hover {
+                scale: 1.5;
+            }
         }
+
+        
         #module-author {
             background-color: #0fb9b1;
             color: #f5f5f5;
@@ -75,4 +98,10 @@
             }
         }
     }
+.selected {
+    background-color: #676766;
+    &:hover {
+        background-color: #676766;
+    }
+}
 </style>
