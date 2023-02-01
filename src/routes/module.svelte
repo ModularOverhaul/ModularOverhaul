@@ -1,49 +1,62 @@
 <script lang="ts">
+	import { selectedIds } from './stores.js';
 	import Module from './module.svelte';
-    export let id:number;
-    let desc: string = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, sed!";
-    let name: string = "SAMPLE DATA";
-    let tag: string = "SAMPLE TAG";
-    let author: string = "SAMPLE AUTHOR";
-    let imgsrc: string = "https://images.unsplash.com/photo-1675168491490-ae909ec3fab2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-    let imgalt: string = "A beach with a sunset in the background"
+    export let packId:number;
+    export let packName: string = "SAMPLE NAME";
+    export let packAuthor: string = "SAMPLE AUTHOR";
+    export let packDescription: string = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, sed!";
+    export let packImage: string = "https://images.unsplash.com/photo-1675168491490-ae909ec3fab2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+    export let packImageAlt: string = "A beach with a sunset in the background"
+    export let packTag: string = "SAMPLETAG";
+    let dataOfStore = [999999];
+    $: dataOfStore = $selectedIds
     $: info = {
-        "name":name,
-        "author":author,
-        "description":desc,
-        "image":imgsrc,
-        "imagealt":imgalt,
-        "tag":tag
-    }
-    switch (id) {
-        case 0:
-            name = `${id}`
-            author = "Nelertile"
-            tag = "nature"
-            imgsrc = "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1274&q=80"
-            imgalt = "A lovely valley with tall mountains on either side"
-            break;
-        case 1:
-            name = `${id}`
-            author = "Nelertile"
-            tag = "explore"
-            break;
+        "name":packName,
+        "author":packAuthor,
+        "description":packDescription,
+        "image":packImage,
+        "imagealt":packImageAlt,
+        "tag":packTag
     }
 
-    let selected: Boolean;
+    
+    let selected: Boolean = false;
     let selclass: String = "";
-    function toggle() {
-        selected = !selected
+    if (!dataOfStore.includes(packId)) {
+        selected = false;
+            
+        }else{
+            selected = true;
+        }
         if (selected) {
             selclass = "selected"
         } else {
             selclass = ""
         }
-        console.log(`Changed state of ${id} to ${selected}`)
+    function toggle() {
+        if (!dataOfStore.includes(packId)) {
+            selectedIds.update((dataOfStore) => {
+                return [packId, ...dataOfStore]
+            })
+            selected = true;
+        }else{
+            let tempStore = dataOfStore.splice(dataOfStore.indexOf(packId), 1);  //deleting
+            selectedIds.update((tempStore) => {
+                return tempStore
+            })
+            
+            selected = false
+        }
+        if (selected) {
+            selclass = "selected"
+        } else {
+            selclass = ""
+        }
+        // console.log(`Changed state of ${packId} to ${selected}`)
     }
 </script>
 
-<div class="module gridid{id} {selclass}" on:click={toggle} on:keydown={toggle}>
+<div class="module gridid{packId} {selclass}" on:click={toggle} on:keydown={toggle}>
     <h1>{info.name}</h1>
     <div class="module-tag"><h4># {info.tag}</h4></div>
     <img src="{info.image}" alt="{info.imagealt}">
@@ -58,7 +71,8 @@
         border-radius: 10px;
         background-color: #474746;
         position: relative;
-        transition: 300ms background cubic-bezier(.45,.05,.55,.95);
+        transition: rotate 300ms 100ms cubic-bezier(.18,.89,.32,1.28), 300ms background cubic-bezier(.45,.05,.55,.95) ;
+
         &:hover {
             background-color: #575756;
         }
@@ -100,6 +114,7 @@
     }
 .selected {
     background-color: #676766;
+    rotate: 1deg;
     &:hover {
         background-color: #676766;
     }
