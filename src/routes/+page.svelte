@@ -28,18 +28,13 @@
 		<h1>Hello, World!</h1>
 
 		<p>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem itaque nihil ad cupiditate
-			dolorum tenetur alias error, eum nostrum soluta totam eius explicabo iste vel nam voluptatum
-			incidunt eveniet veniam!
+			Click on the packs below to select them, then click "<span id="nice-text">DOWNLOAD</span>" to package them! <br>
+			Hover over the images to enlarge them.
 		</p>
 		<div class="module-container">
-			<Module {...Packs[0]} />
-			<Module {...Packs[1]} />
-			<Module {...Packs[2]} />
-			<Module {...Packs[3]} />
-			<Module {...Packs[4]} />
-			<Module {...Packs[5]} />
-			<Module {...Packs[6]} />
+			{#each Packs as Pack, i}
+			<Module {...Packs[i]} />
+			{/each}
 		</div>
 	</div>
 	<div class="card sidebar">
@@ -48,6 +43,12 @@
 </div>
 
 <style lang="scss">
+	#nice-text {
+		font-weight: 500;
+		background: linear-gradient(45deg, rgba(209,129,255,1) 0%, rgba(165,94,234,1) 50%, rgb(106, 58, 196) 100%);
+		background-clip: text;
+		color: transparent;
+	}
 	.page {
 		margin: 2.5%;
 		height: 100%;

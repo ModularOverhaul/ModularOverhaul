@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { selectedIds } from './stores.js';
-	import Module from './module.svelte';
     export let packId:number;
     export let packName: string = "SAMPLE NAME";
     export let packAuthor: string = "SAMPLE AUTHOR";
@@ -35,12 +34,14 @@
         }
     function toggle() {
         if (!dataOfStore.includes(packId)) {
+            dataOfStore.sort()
             selectedIds.update((dataOfStore) => {
                 return [packId, ...dataOfStore]
             })
             selected = true;
         }else{
             let tempStore = dataOfStore.splice(dataOfStore.indexOf(packId), 1);  //deleting
+            tempStore.sort()
             selectedIds.update((tempStore) => {
                 return tempStore
             })
