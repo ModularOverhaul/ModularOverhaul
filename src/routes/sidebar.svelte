@@ -5,11 +5,13 @@
     $: dataOfStore = $selectedIds
     // console.log(Packs)
 
-    function download(){
+    async function download(){
         dataOfStore.sort()
-        dataOfStore.forEach(i => {
-            console.log(Packs[i]);
-        });
+        
+        const response = await fetch('/createPack', {
+            method: 'POST',
+            body: JSON.stringify(dataOfStore)
+        })
     }
 </script>
 
