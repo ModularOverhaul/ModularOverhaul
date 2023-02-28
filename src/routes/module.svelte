@@ -63,7 +63,7 @@
     <img src="{info.image}" alt="{info.imagealt}">
     <p>{info.description}</p>
 
-    <h3 id="module-author">{info.author}</h3>
+    <h3 class="module-author">{info.author}</h3>
 </div>
 
 <style lang="scss">
@@ -95,7 +95,7 @@
         }
 
         
-        #module-author {
+        .module-author {
             background-color: #0fb9b1;
             color: #f5f5f5;
             border-radius: 25px;
